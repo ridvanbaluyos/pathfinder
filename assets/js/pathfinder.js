@@ -9,6 +9,10 @@ var PF = PF || {};
 
 	var _map = null;
 
+	var _poly = null;
+	var _path = null;
+
+
 	// Controllers
 	namespace.Controllers = function ()
 	{
@@ -32,8 +36,19 @@ var PF = PF || {};
 				{
 					namespace.Map().showLocation();
 				};
+
+				$scope.transpoTypes = [
+					'Jeepney', 'Bus', 'MRT', 'LRT-1', 'LRT-2',
+					'Trike', 'Pedicab', 'Fx', 'Walk'
+				];
 			}
 		};
+	}
+
+	// Models
+	namespace.Models = function ()
+	{
+
 	}
 
 	// Map
@@ -45,11 +60,34 @@ var PF = PF || {};
 			{
 				var mapOptions = {
 			    	center: new google.maps.LatLng(14.561588, 121.033509), // Home coordinate
-					zoom: 12,
+					zoom: 17,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 			  	};
 
-			  	namespace._map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+			  	namespace._map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);			  	
+
+			  	// Polyline
+			  	var polyOptions = {
+					strokeColor : "#f90206",
+					strokeOpacity : 0.80,
+					strokeWeight : 5
+				};
+					
+				namespace._poly = new google.maps.Polyline(polyOptions);
+				namespace._poly.setMap(namespace._map);
+
+				google.maps.event.addListener(namespace._map, 'click', function (event)
+			  	{
+			  		namespace.Map().addPath(event.latLng);
+
+			  		if (namespace._path.length === 1)
+			  		{
+			  			namespace.Map().addMarker(event.latLng, { 
+							title : "Start of Route",
+							description : "Start of Route",
+						});
+			  		}			  			
+			  	});
 			},
 
 			showLocation : function ()
@@ -79,9 +117,23 @@ var PF = PF || {};
 				});
 			},
 
-			showLocationFailed : function ()
+			showLocationFailed : function (error)
 			{
-				alert('failed');
+				switch (error.code)
+				{
+					case error.PERMISSION_DENIED:
+						alert('Permission Denied');
+						break;
+					case error.POSITION_UNAVAILABLE:
+						alert('Position Unavailable');
+						break;
+					case error.TIMEOUT:
+						alert('Timeout');
+						break;
+					case error.UNKNOWN_ERROR:
+						alert('Unknown Error');
+						break;
+				}
 			},
 
 			addMarker : function (location, params)
@@ -101,10 +153,16 @@ var PF = PF || {};
 					infoWindow.setContent(description);
 					infoWindow.open(namespace._map, marker);
 				});
+			},
+
+			addPath : function (location)
+			{
+				namespace._path = namespace._poly.getPath();
+				namespace._path.push(location);
 			}
 		};
 	}
 })(PF);
 
 var ctrl = new PF.Controllers();
-var map = PF.Map();
+var map = new PF.Map();
