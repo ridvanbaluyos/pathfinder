@@ -11,7 +11,7 @@ var PF = PF || {};
 
 	var _poly = null;
 	var _path = null;
-
+	var _infoWindow = null;
 
 	// Controllers
 	namespace.Controllers = function ()
@@ -60,7 +60,7 @@ var PF = PF || {};
 			{
 				var mapOptions = {
 			    	center: new google.maps.LatLng(14.561588, 121.033509), // Home coordinate
-					zoom: 17,
+					zoom: 21,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 			  	};
 
@@ -69,7 +69,7 @@ var PF = PF || {};
 			  	// Polyline
 			  	var polyOptions = {
 					strokeColor : "#f90206",
-					strokeOpacity : 0.80,
+					strokeOpacity : 0.25,
 					strokeWeight : 5
 				};
 					
@@ -88,6 +88,28 @@ var PF = PF || {};
 						});
 			  		}			  			
 			  	});
+
+			  	google.maps.event.addListener(namespace._poly, 'mouseover', function (event)
+		  		{
+		  			// Polyline
+				  	var polyOptions = {
+						strokeColor : "#000000",
+						strokeOpacity : 1,
+						strokeWeight : 5
+					};
+		  			namespace._poly.setOptions(polyOptions);
+		  		});
+
+		  		google.maps.event.addListener(namespace._poly, 'mouseout', function (event)
+		  		{
+		  			// Polyline
+				  	var polyOptions = {
+						strokeColor : "#f90206",
+						strokeOpacity : 0.25,
+						strokeWeight : 5
+					};
+		  			namespace._poly.setOptions(polyOptions);
+		  		});
 			},
 
 			showLocation : function ()
@@ -150,7 +172,7 @@ var PF = PF || {};
 
 				var infoWindow = new google.maps.InfoWindow(); 
 				google.maps.event.addListener(marker, "click", function (e){
-					infoWindow.setContent(description);
+					infoWindow.setContent(params.description);
 					infoWindow.open(namespace._map, marker);
 				});
 			},
