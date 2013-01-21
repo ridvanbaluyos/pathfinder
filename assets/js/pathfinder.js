@@ -59,8 +59,8 @@ var PF = PF || {};
 			init : function ()
 			{
 				var mapOptions = {
-			    	center: new google.maps.LatLng(14.561588, 121.033509), // Home coordinate
-					zoom: 21,
+			    	center: new google.maps.LatLng(14.586961, 121.063491), // Home coordinate
+					zoom: 17,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 			  	};
 
@@ -70,9 +70,10 @@ var PF = PF || {};
 			  	var polyOptions = {
 					strokeColor : "#f90206",
 					strokeOpacity : 0.25,
-					strokeWeight : 5
+					strokeWeight : 5,
+					geodesic : true
 				};
-					
+				
 				namespace._poly = new google.maps.Polyline(polyOptions);
 				namespace._poly.setMap(namespace._map);
 
@@ -181,6 +182,9 @@ var PF = PF || {};
 			{
 				namespace._path = namespace._poly.getPath();
 				namespace._path.push(location);
+
+				var length = google.maps.geometry.spherical.computeLength(namespace._path);
+				alert(length);
 			}
 		};
 	}
