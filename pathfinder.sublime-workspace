@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"_",
+				"_infoWindow"
+			],
+			[
+				"Add",
+				"addMarker"
+			],
+			[
+				"l",
+				"LatLng"
+			],
+			[
 				"getU",
 				"getUniqueToken"
 			],
@@ -88,10 +100,6 @@
 				"violation_type"
 			],
 			[
-				"_",
-				"_USER_VIOLATIONS_EXERCISE_TABLE_"
-			],
-			[
 				"ac",
 				"actionKey"
 			]
@@ -99,6 +107,22 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 2314,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/pathfinder.js",
+			"settings":
+			{
+				"buffer_size": 4295,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -123,7 +147,7 @@
 				":$ - EOF"
 			]
 		],
-		"width": 522.0
+		"width": 467.0
 	},
 	"console":
 	{
@@ -286,6 +310,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"000",
+			"50",
+			"ALERT",
+			"alert",
+			"failed",
 			"Infrared",
 			"var_du",
 			"var_d",
@@ -408,12 +437,7 @@
 			"			echo \"<pre>\";\n			var_dump($comments);\n			die();",
 			"Tick",
 			"die",
-			"exit",
-			"Violator",
-			"end",
-			"		\n",
-			"class=\"keyhigh",
-			"Signature"
+			"exit"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -432,13 +456,64 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
-			]
-		},
-		{
-			"sheets":
-			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 2314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2224,
+								2224
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 561.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "assets/js/pathfinder.js",
+					"settings":
+					{
+						"buffer_size": 4295,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								680,
+								680
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 306.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -459,18 +534,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.476909074605,
 			1.0
 		],
 		"rows":

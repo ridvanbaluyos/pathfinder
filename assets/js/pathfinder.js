@@ -3,6 +3,7 @@
  */
 var PF = PF || {};
 
+
 (function(namespace)
 {
 	"use strict";
@@ -13,58 +14,6 @@ var PF = PF || {};
 	var _path = null;
 	var _infoWindow = null;
 	var _totalDistance = null;
-
-	// Controllers
-	namespace.Controllers = function ()
-	{
-		return {
-
-			// Navbar
-			Navbar : function ($scope)
-			{
-				$scope.projectName = "Pathfinder";
-			},
-
-			// Home Page
-			Home : function ($scope)
-			{
-				$scope.initMap = function ()
-				{					
-					namespace.Map().init();
-				};
-
-				$scope.showLocation = function ()
-				{
-					namespace.Map().showLocation();
-				};
-
-				$scope.totalDistance = namespace._totalDistance;
-
-				$scope.getTotalDistance = function ()
-				{
-					return namespace.Map().getTotalDistance();
-				};
-
-				$scope.transpoTypes = [
-					{ text : 'Jeepney', value : 'jeepney' },
-					{ text : 'Bus', value : 'bus' },
-					{ text : 'MRT', value : 'mrt' },
-					{ text : 'LRT-1', value : 'lrt1' },
-					{ text : 'LRT-2', value : 'lrt2' },
-					{ text : 'Trike', value : 'trike' },
-					{ text : 'Pedicab', value : 'pedicab' },
-					{ text : 'FX', value : 'fx' },
-					{ text : 'Walk', value : 'walk' }
-				];
-			}
-		};
-	}
-
-	// Models
-	namespace.Models = function ()
-	{
-
-	}
 
 	// Map
 	namespace.Map = function () 
@@ -201,15 +150,34 @@ var PF = PF || {};
 			{
 				namespace._path = namespace._poly.getPath();
 				namespace._path.push(location);
+
+				var totalDistance = (namespace._path === undefined) 
+					? 0
+					: google.maps.geometry.spherical.computeLength(namespace._path);				
+
+				totalDistance = parseFloat(totalDistance / 1000);
+				totalDistance = totalDistance.toFixed(3) + ' km';
+			
+
+				$('#total_distance').html(totalDistance);
 			},
 
 			getTotalDistance : function ()
 			{
-
+				namespace._totalDistance = (namespace._path === undefined) 
+					? 0
+					: google.maps.geometry.spherical.computeLength(namespace._path);
 			}
 		};
 	}
 })(PF);
 
-var ctrl = new PF.Controllers();
-var map = new PF.Map();
+$(document).ready(function(namespace)
+{
+	var map = new PF.Map();
+	map.init();
+
+	$('#get_current_location').click(function() {
+		map.showLocation();
+	});
+});
