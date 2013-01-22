@@ -51,8 +51,14 @@
         </div>    
 
         <div class="row" style="margin-top: 10px;">
-            <div class="span3">
+            <div class="span4">
                 <button ng-click="showLocation()" class="btn btn-success" id="get_current_location">Get Current Location</button>
+            </div>
+            <div class="span4">
+              Transpo Type: <select id="transpo_type" ng-model="transpoType" ng-options="t.text for t in transpoTypes | orderBy : 'text'"></select>
+            </div>
+            <div class="span4">
+              Total Distance: <span ng:bind="totalDistance"></span>
             </div>
         </div>    
 

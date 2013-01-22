@@ -12,6 +12,7 @@ var PF = PF || {};
 	var _poly = null;
 	var _path = null;
 	var _infoWindow = null;
+	var _totalDistance = null;
 
 	// Controllers
 	namespace.Controllers = function ()
@@ -37,9 +38,23 @@ var PF = PF || {};
 					namespace.Map().showLocation();
 				};
 
+				$scope.totalDistance = namespace._totalDistance;
+
+				$scope.getTotalDistance = function ()
+				{
+					return namespace.Map().getTotalDistance();
+				};
+
 				$scope.transpoTypes = [
-					'Jeepney', 'Bus', 'MRT', 'LRT-1', 'LRT-2',
-					'Trike', 'Pedicab', 'Fx', 'Walk'
+					{ text : 'Jeepney', value : 'jeepney' },
+					{ text : 'Bus', value : 'bus' },
+					{ text : 'MRT', value : 'mrt' },
+					{ text : 'LRT-1', value : 'lrt1' },
+					{ text : 'LRT-2', value : 'lrt2' },
+					{ text : 'Trike', value : 'trike' },
+					{ text : 'Pedicab', value : 'pedicab' },
+					{ text : 'FX', value : 'fx' },
+					{ text : 'Walk', value : 'walk' }
 				];
 			}
 		};
@@ -87,7 +102,11 @@ var PF = PF || {};
 							title : "Start of Route",
 							description : "Start of Route",
 						});
-			  		}			  			
+			  		}
+
+			  		namespace._totalDistance = (namespace._path === undefined) 
+						? 0
+						: google.maps.geometry.spherical.computeLength(namespace._path);
 			  	});
 
 			  	google.maps.event.addListener(namespace._poly, 'mouseover', function (event)
@@ -178,13 +197,15 @@ var PF = PF || {};
 				});
 			},
 
-			addPath : function (location)
+			addPath : function (location, $scope)
 			{
 				namespace._path = namespace._poly.getPath();
 				namespace._path.push(location);
+			},
 
-				var length = google.maps.geometry.spherical.computeLength(namespace._path);
-				alert(length);
+			getTotalDistance : function ()
+			{
+
 			}
 		};
 	}
