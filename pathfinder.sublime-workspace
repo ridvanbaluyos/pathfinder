@@ -5,7 +5,7 @@
 		[
 			[
 				"_",
-				"_infoWindow"
+				"_totalDistance"
 			],
 			[
 				"Add",
@@ -111,7 +111,7 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 2314,
+				"buffer_size": 3185,
 				"line_ending": "Unix"
 			}
 		},
@@ -119,8 +119,28 @@
 			"file": "assets/js/pathfinder.js",
 			"settings":
 			{
-				"buffer_size": 4295,
+				"buffer_size": 4397,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/homeCtrl.js",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "function navbarCtrl($scope)\n{\n	$scope\n}",
+			"file": "assets/js/navbarCtrl.js",
+			"file_size": 33,
+			"file_write_time": 1358847409000000,
+			"settings":
+			{
+				"buffer_size": 39,
+				"line_ending": "Unix",
+				"name": "navbarCtr"
 			}
 		}
 	],
@@ -164,6 +184,12 @@
 	},
 	"file_history":
 	[
+		"/var/www/pathfinder/index.html",
+		"/var/www/pathfinder/assets/js/pathfinder.js",
+		"/var/www/pathfinder/index2.html",
+		"/var/www/pathfinder/assets/vendors/angular-ui/modules/directives/map/map.js",
+		"/var/www/pathfinder/assets/js/pathfinder2.js",
+		"/var/www/pathfinder/assets/js/bootstrap.min.js",
 		"/home/ridvan/Projects/playpen/angular/angular-phonecat/app/phones/samsung-galaxy-tab.json",
 		"/home/ridvan/Projects/playpen/angular/angular-phonecat/app/partials/phone-detail.html",
 		"/home/ridvan/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
@@ -285,13 +311,7 @@
 		"/home/ridvan/Projects/sulit/framework/templates/english/v2/email/emailAlerts.html.tpl",
 		"/home/ridvan/Projects/sulit/framework/templates/english/v2/modules/admin/emailClassified.tpl",
 		"/home/ridvan/Projects/sulit/framework/forms/emailRegister.form.php",
-		"/home/ridvan/Projects/sulit/framework/forms/sendEmailClassified.form.php",
-		"/home/ridvan/Projects/sulit/framework/classes/NotAllowedDomains.class.php",
-		"/home/ridvan/Projects/sulit/framework/templates/english/v2/modules/admin/userUpdate.tpl",
-		"/home/ridvan/Projects/sulit/framework/modules/admin/admin_userList_manager.class.php",
-		"/home/ridvan/Projects/sulit/framework/templates/english/v2/modules/admin/userDisplay.tpl",
-		"/home/ridvan/Projects/sulit/framework/modules/admin/admin_promoCode_manager.class.php",
-		"/home/ridvan/Projects/sulit/framework/classes/PromoCode.class.php"
+		"/home/ridvan/Projects/sulit/framework/forms/sendEmailClassified.form.php"
 	],
 	"find":
 	{
@@ -310,6 +330,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"() ",
+			";\n",
 			"000",
 			"50",
 			"ALERT",
@@ -435,12 +457,10 @@
 			"mapsGeocode",
 			"plateNumber",
 			"			echo \"<pre>\";\n			var_dump($comments);\n			die();",
-			"Tick",
-			"die",
-			"exit"
+			"Tick"
 		],
 		"highlight": true,
-		"in_selection": false,
+		"in_selection": true,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
@@ -456,7 +476,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -464,15 +484,15 @@
 					"file": "index.html",
 					"settings":
 					{
-						"buffer_size": 2314,
+						"buffer_size": 3185,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2224,
-								2224
+								1779,
+								1779
 							]
 						],
 						"settings":
@@ -482,25 +502,31 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 561.0,
+						"translation.y": 612.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
 				{
 					"buffer": 1,
 					"file": "assets/js/pathfinder.js",
 					"settings":
 					{
-						"buffer_size": 4295,
+						"buffer_size": 4397,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								680,
-								680
+								4222,
+								4222
 							]
 						],
 						"settings":
@@ -509,7 +535,60 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 306.0,
+						"translation.y": 2244.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "assets/js/homeCtrl.js",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "assets/js/navbarCtrl.js",
+					"settings":
+					{
+						"buffer_size": 39,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								39,
+								39
+							]
+						],
+						"settings":
+						{
+							"auto_name": "navbarCtr",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -534,11 +613,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":

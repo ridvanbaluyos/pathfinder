@@ -146,7 +146,7 @@ var PF = PF || {};
 				});
 			},
 
-			addPath : function (location, $scope)
+			addPath : function (location)
 			{
 				namespace._path = namespace._poly.getPath();
 				namespace._path.push(location);
@@ -156,10 +156,10 @@ var PF = PF || {};
 					: google.maps.geometry.spherical.computeLength(namespace._path);				
 
 				totalDistance = parseFloat(totalDistance / 1000);
-				totalDistance = totalDistance.toFixed(3) + ' km';
-			
+				totalDistance = totalDistance.toFixed(3) + ' km';			
 
 				$('#total_distance').html(totalDistance);
+				namespace.Map().getReverseGeocodingLocation(location);
 			},
 
 			getTotalDistance : function ()
@@ -167,7 +167,25 @@ var PF = PF || {};
 				namespace._totalDistance = (namespace._path === undefined) 
 					? 0
 					: google.maps.geometry.spherical.computeLength(namespace._path);
-			}
+			
+			},
+
+			getReverseGeocodingLocation : function(location)
+			{
+				var geocoder = new google.maps.Geocoder();
+				geocoder.geocode({'latLng':location}, function (results, status)
+				{
+					if (status == google.maps.GeocoderStatus.OK) {
+				        if (results[1]) {
+				          alert(results[0].formatted_address);
+				          console.log(results);
+				        }
+				      } else {
+				        alert("Geocoder failed due to: " + status);
+				      }
+				})
+
+			}		
 		};
 	}
 })(PF);
