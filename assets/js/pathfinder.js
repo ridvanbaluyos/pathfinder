@@ -35,7 +35,8 @@ var PF = PF || {};
 					strokeColor : "#f90206",
 					strokeOpacity : 0.25,
 					strokeWeight : 5,
-					geodesic : true
+					geodesic : true,
+					editable : true
 				};
 				
 				namespace._poly = new google.maps.Polyline(polyOptions);
@@ -44,6 +45,8 @@ var PF = PF || {};
 				google.maps.event.addListener(namespace._map, 'click', function (event)
 			  	{
 			  		namespace.Map().addPath(event.latLng);
+			  		namespace.Map().displayTotalDistance();
+			  		namespace.Map().getReverseGeocodingLocation(event.latLng);
 
 			  		if (namespace._path.length === 1)
 			  		{
@@ -52,15 +55,11 @@ var PF = PF || {};
 							description : "Start of Route",
 						});
 			  		}
-
-			  		namespace._totalDistance = (namespace._path === undefined) 
-						? 0
-						: google.maps.geometry.spherical.computeLength(namespace._path);
 			  	});
 
+				// Polyline listeners
 			  	google.maps.event.addListener(namespace._poly, 'mouseover', function (event)
 		  		{
-		  			// Polyline
 				  	var polyOptions = {
 						strokeColor : "#000000",
 						strokeOpacity : 1,
@@ -71,13 +70,28 @@ var PF = PF || {};
 
 		  		google.maps.event.addListener(namespace._poly, 'mouseout', function (event)
 		  		{
-		  			// Polyline
 				  	var polyOptions = {
 						strokeColor : "#f90206",
 						strokeOpacity : 0.25,
 						strokeWeight : 5
 					};
 		  			namespace._poly.setOptions(polyOptions);
+		  		});
+
+		  		// Path listeners
+		  		google.maps.event.addListener(namespace._poly.getPath(), 'insert_at', function (event)
+		  		{
+		  			namespace.Map().displayTotalDistance();
+		  		});
+
+		  		google.maps.event.addListener(namespace._poly.getPath(), 'remove_at', function (event)
+		  		{
+		  			namespace.Map().displayTotalDistance();
+		  		});
+
+		  		google.maps.event.addListener(namespace._poly.getPath(), 'set_at', function (event)
+		  		{
+		  			namespace.Map().displayTotalDistance();
 		  		});
 			},
 
@@ -149,25 +163,25 @@ var PF = PF || {};
 			addPath : function (location)
 			{
 				namespace._path = namespace._poly.getPath();
-				namespace._path.push(location);
+				namespace._path.push(location);				
+			},
 
+			displayTotalDistance : function ()
+			{
+				$('#total_distance').html(namespace.Map().getTotalDistance());
+				//namespace.Map().getReverseGeocodingLocation(location);
+			},
+
+			getTotalDistance : function ()
+			{
 				var totalDistance = (namespace._path === undefined) 
 					? 0
 					: google.maps.geometry.spherical.computeLength(namespace._path);				
 
 				totalDistance = parseFloat(totalDistance / 1000);
-				totalDistance = totalDistance.toFixed(3) + ' km';			
+				totalDistance = totalDistance.toFixed(3) + ' km';
 
-				$('#total_distance').html(totalDistance);
-				namespace.Map().getReverseGeocodingLocation(location);
-			},
-
-			getTotalDistance : function ()
-			{
-				namespace._totalDistance = (namespace._path === undefined) 
-					? 0
-					: google.maps.geometry.spherical.computeLength(namespace._path);
-			
+				return totalDistance;								
 			},
 
 			getReverseGeocodingLocation : function(location)
