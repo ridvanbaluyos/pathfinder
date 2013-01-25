@@ -40,13 +40,13 @@ var PF = PF || {};
 				};
 				
 				namespace._poly = new google.maps.Polyline(polyOptions);
-				namespace._poly.setMap(namespace._map);
+				namespace._poly.setMap(namespace._map);				
 
 				google.maps.event.addListener(namespace._map, 'click', function (event)
 			  	{
 			  		namespace.Map().addPath(event.latLng);
 			  		namespace.Map().displayTotalDistance();
-			  		namespace.Map().getReverseGeocodingLocation(event.latLng);
+			  		namespace.Map().addInstructionDetails(event.latLng);		  		
 
 			  		if (namespace._path.length === 1)
 			  		{
@@ -162,6 +162,7 @@ var PF = PF || {};
 
 			addPath : function (location)
 			{
+				console.log(location);
 				namespace._path = namespace._poly.getPath();
 				namespace._path.push(location);				
 			},
@@ -184,22 +185,30 @@ var PF = PF || {};
 				return totalDistance;								
 			},
 
-			getReverseGeocodingLocation : function(location)
+			addInstructionDetails : function(location)
 			{
-				var geocoder = new google.maps.Geocoder();
+				var geocoder = new google.maps.Geocoder();			
+				var street = '';
+
 				geocoder.geocode({'latLng':location}, function (results, status)
 				{
-					if (status == google.maps.GeocoderStatus.OK) {
-				        if (results[1]) {
-				          alert(results[0].formatted_address);
-				          console.log(results);
+					if (status == google.maps.GeocoderStatus.OK) 
+					{
+				        if (results[1]) 
+				        {				     				           
+				          	var tmp = results[0].formatted_address.split(',');
+				          	var address = tmp[0] + ', ' + tmp[1];
+				          	var rowCount = $('#route_path_details tr').length;
+
+				          	$('#route_path_details tr:last').after('<tr><td>' + parseInt(rowCount) + '</td><td>' + address + '</td></tr>');
 				        }
-				      } else {
+				      } 
+				      else 
+				      {
 				        alert("Geocoder failed due to: " + status);
 				      }
-				})
-
-			}		
+				});
+			}
 		};
 	}
 })(PF);
@@ -209,7 +218,27 @@ $(document).ready(function(namespace)
 	var map = new PF.Map();
 	map.init();
 
-	$('#get_current_location').click(function() {
+	$('#get_current_location').click(function() 
+	{
 		map.showLocation();
 	});
+
+	$('#add_route_label').click(function() 
+	{
+		var routeInput = $('#route_labels_group > .controls');
+		var removeButton = $('<span class="add-on btn btn-danger" id="delete_route_label"><i class="icon-remove icon-white"></i></span>');		
+		removeButton.click(function()
+		{
+			$(this).parent().remove();
+		})
+
+		var inputPrependDiv = $('<div class="input-prepend input-append" id="route_input_group" style="margin-bottom: 5px;">');
+		var spanAddOn = $('<span class="add-on"><i class="icon-road"></i></span>');
+		var inputRouteName = $('<input class="span3" type="text" placeholder="Enter Route Name" name="routeInputName[]" />');
+		
+		inputPrependDiv.append(spanAddOn);
+		inputPrependDiv.append(inputRouteName);
+		inputPrependDiv.append(removeButton);
+		routeInput.append(inputPrependDiv);
+	})
 });
