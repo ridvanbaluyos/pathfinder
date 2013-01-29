@@ -1,13 +1,13 @@
 /**
  * 
  */
+"use strict";
+
 var PF = PF || {};
 
 
 (function(namespace)
-{
-	"use strict";
-
+{	
 	var _map = null;
 
 	var _poly = null;
@@ -120,6 +120,18 @@ var PF = PF || {};
 					description : "Your location was detected here.",
 					iconType : "house"
 				});
+
+				var proximityRadiusOptions = {
+					strokeColor : "#00ff00",
+			      	strokeOpacity : 0.8,
+			      	strokeWeight : 2,
+			      	fillColor : "#b5eaaa",
+			      	fillOpacity : 0.75,
+			      	map : namespace._map,
+			      	center : latLng,
+			      	radius : 250
+				};
+				var proximityRadius = new google.maps.Circle(proximityRadiusOptions)
 			},
 
 			showLocationFailed : function (error)
@@ -162,9 +174,9 @@ var PF = PF || {};
 
 			addPath : function (location)
 			{
-				console.log(location);
 				namespace._path = namespace._poly.getPath();
-				namespace._path.push(location);				
+				namespace._path.push(location);
+				console.log(namespace._path.length); 
 			},
 
 			displayTotalDistance : function ()
