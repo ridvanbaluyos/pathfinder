@@ -176,7 +176,12 @@ var PF = PF || {};
 			{
 				namespace._path = namespace._poly.getPath();
 				namespace._path.push(location);
-				console.log(namespace._path.length); 
+
+				var latLngTmp = location.toString().split(',');
+				var lat = latLngTmp[0].substr(1);
+				var lon = latLngTmp[1].substr(1, latLngTmp[1].length - 1);
+				
+				console.log(namespace._path.length + ": " + location); 
 			},
 
 			displayTotalDistance : function ()
